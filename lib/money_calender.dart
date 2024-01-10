@@ -38,7 +38,7 @@ class MoneyCalender extends StatelessWidget {
         home: Scaffold(
           body: Row(
             children: [
-              
+              const Text('testing git hub'),
               const Text('Osama'),
               IconButton(
                 onPressed: () =>
