@@ -23,15 +23,14 @@ class MoneyManagmentCubit extends Cubit<MoneyManagmentState> {
       }
       var updatedState =
           Jiffy.parse(currentState,pattern: "MMMM dd").add(months: num).format(pattern: "MMMM dd");
-
+emit(MonthChange(currentState: updatedState));
       var isCurrentMonth = Jiffy.parse(updatedState, pattern: "MMMM dd").isSame(Jiffy.parse(currentMonth,pattern: 'MMMM dd'));
 
       if (isCurrentMonth){
       emit(InitialMonth(currentState: updatedState));
  
-      emit(MonthChange(currentState: updatedState));
-    }else if(state is MonthChange){
-    }     
+      
+    }    
 }
     }
 }
