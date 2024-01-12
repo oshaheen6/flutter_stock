@@ -13,11 +13,16 @@ class MoneyManagmentCubit extends Cubit<MoneyManagmentState> {
   void decrement(){ updateTheMonth(-1);}
 
     void updateTheMonth(int num){
-    if (state is InitialMonth || state is MonthChange) {
+      var currentState ="";
       var currentMonth = Jiffy.now().format(pattern: 'MMMM dd');
-      var currentState = (state as InitialMonth).currentState;
+
+    if (state is InitialMonth || state is MonthChange) {
+      if(state is InitialMonth){}
+       currentState = (state as InitialMonth).currentState;}else{
+        currentState = (state as MonthChange).currentState;
+      }
       var updatedState =
-          Jiffy.parse(currentState,pattern: "MMMM dd").add(months: 1).format(pattern: "MMMM dd");
+          Jiffy.parse(currentState,pattern: "MMMM dd").add(months: num).format(pattern: "MMMM dd");
 
       var isCurrentMonth = Jiffy.parse(updatedState, pattern: "MMMM dd").isSame(Jiffy.parse(currentMonth,pattern: 'MMMM dd'));
 
@@ -27,37 +32,6 @@ class MoneyManagmentCubit extends Cubit<MoneyManagmentState> {
       emit(MonthChange(currentState: updatedState));
     }else if(state is MonthChange){
       
-      var currentState = (state as MonthChange).currentState;
-      var updatedState =
-          Jiffy.parse(currentState,pattern: "MMMM dd").add(months: 1).format(pattern: "MMMM dd");
-  
-}else{
-emit(MonthChange(currentState: updatedState));
 }
-        
     }
-  }
-  void decrement(){
-    if (state is InitialMonth) {
-      var currentState = (state as InitialMonth).currentState;
-      var updatedState =
-          Jiffy.parse(currentState,pattern: "MMMM dd").subtract(months: 1).format(pattern: "MMMM dd");
-      emit(MonthChange(currentState: updatedState));
-    }else if(state is MonthChange){
-      var currentMonth = Jiffy.now().format(pattern: 'MMMM dd');
-      var currentState = (state as MonthChange).currentState;
-      var updatedState =
-          Jiffy.parse(currentState,pattern: "MMMM dd").subtract(months: 1).format(pattern: "MMMM dd");
- var isCurrentMonth = Jiffy.parse(updatedState, pattern: "MMMM dd").isSame(Jiffy.parse(currentMonth,pattern: 'MMMM dd'));
-
-if (isCurrentMonth){
-  emit(InitialMonth(currentState: updatedState));
-  
-}else{
-emit(MonthChange(currentState: updatedState));
-}
-        
-    }
-}
-
 }
