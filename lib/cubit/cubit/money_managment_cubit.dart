@@ -17,7 +17,7 @@ class MoneyManagmentCubit extends Cubit<MoneyManagmentState> {
       var currentMonth = Jiffy.now().format(pattern: 'MMMM dd');
 
     if (state is InitialMonth || state is MonthChange) {
-      if(state is InitialMonth){}
+      if(state is InitialMonth){
        currentState = (state as InitialMonth).currentState;}else{
         currentState = (state as MonthChange).currentState;
       }
@@ -31,7 +31,7 @@ class MoneyManagmentCubit extends Cubit<MoneyManagmentState> {
  
       emit(MonthChange(currentState: updatedState));
     }else if(state is MonthChange){
-      
+    }     
 }
     }
 }
